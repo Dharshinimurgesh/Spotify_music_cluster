@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Spotify Music Clustering Dashboard</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#121212;
+color:white;
+text-align:center;
+}
+
+.header{
+background:#1DB954;
+padding:20px;
+font-size:30px;
+font-weight:bold;
+}
+
+.container{
+width:500px;
+margin:auto;
+margin-top:40px;
+background:#181818;
+padding:30px;
+border-radius:10px;
+box-shadow:0px 0px 10px black;
+}
+
+label{
+display:block;
+margin-top:15px;
+}
+
+input[type=range]{
+width:100%;
+}
+
+button{
+margin-top:20px;
+padding:10px 25px;
+border:none;
+background:#1DB954;
+color:white;
+font-size:16px;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#17a74a;
+}
+
+.result{
+margin-top:20px;
+font-size:22px;
+color:#1DB954;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+🎵 Spotify Music Clustering Dashboard
+</div>
+
+<div class="container">
+
+<form action="/predict" method="post">
+
+<label>Danceability</label>
+<input type="range" name="danceability" min="0" max="1" step="0.01">
+
+<label>Energy</label>
+<input type="range" name="energy" min="0" max="1" step="0.01">
+
+<label>Tempo</label>
+<input type="range" name="tempo" min="50" max="200">
+
+<label>Loudness</label>
+<input type="range" name="loudness" min="-60" max="0">
+
+<label>Valence</label>
+<input type="range" name="valence" min="0" max="1" step="0.01">
+
+<button type="submit">Predict Cluster</button>
+
+</form>
+
+{% if prediction %}
+<div class="result">
+Cluster Result : {{prediction}}
+</div>
+{% endif %}
+{% if songs %}
+
+<h3>Recommended Songs 🎧</h3>
+
+<ul>
+{% for song in songs %}
+<li>{{song}}</li>
+{% endfor %}
+</ul>
+
+{% endif %}
+</div>
+
+</body>
+</html>
